@@ -1,8 +1,12 @@
 package br.com.filipescaglia.courseinfo.cli;
 
 import br.com.filipescaglia.courseinfo.cli.services.CourseRetrievalService;
+import br.com.filipescaglia.courseinfo.cli.services.PluralsightCourse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class CourseRetriever {
 
@@ -26,8 +30,11 @@ public class CourseRetriever {
         LOG.info("Retrieving courses for author '{}'", authorId);
         CourseRetrievalService courseRetrievalService = new CourseRetrievalService();
 
-        String coursesToStore = courseRetrievalService.getCoursesFor(authorId);
-        LOG.info("Retrieved the following courses {}", coursesToStore);
+        List<PluralsightCourse> coursesToStore = courseRetrievalService.getCoursesFor(authorId)
+                .stream()
+                .filter(Predicate.not(PluralsightCourse::isRetired))
+                .toList();
+        LOG.info("Retrieved the following {} courses {}", coursesToStore.size(), coursesToStore);
     }
 
 }
