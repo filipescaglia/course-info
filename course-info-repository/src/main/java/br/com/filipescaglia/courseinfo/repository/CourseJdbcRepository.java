@@ -50,7 +50,7 @@ class CourseJdbcRepository implements CourseRepository {
                         resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getLong(3),
-                        resultSet.getString(4),
+                        resultSet.getString(4)
                 );
                 courses.add(course);
             }
