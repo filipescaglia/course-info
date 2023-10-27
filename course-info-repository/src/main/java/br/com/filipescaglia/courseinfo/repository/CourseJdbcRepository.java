@@ -38,6 +38,21 @@ class CourseJdbcRepository implements CourseRepository {
         }
     }
 
+    public void saveCourses(List<Course> courses) {
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(INSERT_COURSE);
+            for (Course course : courses) {
+                statement.setString(1, course.id());
+                statement.setString(2, course.name());
+                statement.setLong(3, course.length());
+                statement.setString(4, course.url());
+                statement.execute();
+            }
+        } catch (SQLException e) {
+            throw new RepositoryException("Failed to save", e);
+        }
+    }
+
     @Override
     public List<Course> getAllCourses() {
         try (Connection connection = dataSource.getConnection()) {

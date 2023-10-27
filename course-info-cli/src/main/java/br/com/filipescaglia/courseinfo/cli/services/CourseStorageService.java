@@ -16,15 +16,11 @@ public class CourseStorageService {
     }
 
     public void storePluralsightCourses(List<PluralsightCourse> psCourses) {
-        for (PluralsightCourse psCourse : psCourses) {
-            Course course = new Course(
-                    psCourse.id(),
-                    psCourse.title(),
-                    psCourse.durationInMinutes(),
-                    PS_BASE_URL + psCourse.contentUrl()
-            );
-            courseRepository.saveCourse(course);
-        }
+        List<Course> courses = psCourses
+                .stream()
+                .map(c -> new Course(c.id(), c.title(), c.durationInMinutes(), PS_BASE_URL + c.contentUrl()))
+                .toList();
+        courseRepository.saveCourses(courses);
     }
 
 }

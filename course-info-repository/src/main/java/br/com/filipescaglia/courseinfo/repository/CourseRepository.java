@@ -7,6 +7,8 @@ import java.util.List;
 public interface CourseRepository {
     void saveCourse(Course course);
 
+    void saveCourses(List<Course> courses);
+
     List<Course> getAllCourses();
 
     static CourseRepository openCourseRepository(String databaseFile) {

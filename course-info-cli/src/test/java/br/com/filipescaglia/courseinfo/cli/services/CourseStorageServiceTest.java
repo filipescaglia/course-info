@@ -33,6 +33,11 @@ class CourseStorageServiceTest {
         }
 
         @Override
+        public void saveCourses(List<Course> sourceCourses) {
+            courses.addAll(sourceCourses);
+        }
+
+        @Override
         public List<Course> getAllCourses() {
             return courses;
         }
