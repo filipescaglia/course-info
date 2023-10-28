@@ -1,7 +1,8 @@
 package br.com.filipescaglia.courseinfo.repository;
 
 import br.com.filipescaglia.courseinfo.domain.Course;
-import org.h2.jdbcx.JdbcDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -19,9 +20,9 @@ class CourseJdbcRepository implements CourseRepository {
     private final DataSource dataSource;
 
     public CourseJdbcRepository(String databaseFile) {
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL(H2_DATABASE_URL.formatted(databaseFile));
-        this.dataSource = jdbcDataSource;
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(H2_DATABASE_URL.formatted(databaseFile));
+        this.dataSource = new HikariDataSource(config);
     }
 
     @Override
