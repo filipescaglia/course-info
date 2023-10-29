@@ -4,6 +4,7 @@ import br.com.filipescaglia.courseinfo.domain.Course;
 import br.com.filipescaglia.courseinfo.repository.CourseRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CourseStorageService {
 
@@ -21,7 +22,8 @@ public class CourseStorageService {
                     pCourse.id(),
                     pCourse.title(),
                     pCourse.durationInMinutes(),
-                    PS_BASE_URL + pCourse.contentUrl()
+                    PS_BASE_URL + pCourse.contentUrl(),
+                    Optional.empty()
             );
             courseRepository.saveCourse(course);
         }
